@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,6 +40,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core'
 ]
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -68,7 +78,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'django_live_dashboard.wsgi.application'
+# WSGI_APPLICATION = 'django_live_dashboard.wsgi.application'
+ASGI_APPLICATION= 'django_live_dashboard.asgi.application'
 
 
 # Database

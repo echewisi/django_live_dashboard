@@ -12,4 +12,15 @@ class DashboardConsumer(AsyncWebsocketConsumer):
     
     async def receive(self, text_data):
         print("reading text...")
-        text_data= json.loads(text_data)
+        text_data_json= json.loads(text_data)
+        message= text_data_json["message"]
+        sender= text_data_json["sender"]
+        
+        print(message, sender)
+        
+        await self.send(text_data= json.dumps(
+            {
+                "message": message,
+                "sender": sender
+            }
+        ))
